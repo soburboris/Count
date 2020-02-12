@@ -94,14 +94,14 @@ function chooseOptExpenses(){
 	for (var i = 1; i < 4; i++){
 		let questsion = confirm("Статья необязательных расходов?");
 		if (questsion){
-			appData.optionalExpenses[i] =' Yes';
+			appData.optionalExpenses[i] ='Yes';
 		}else {
-			appData.optionalExpenses[i] =' No';
+			appData.optionalExpenses[i] ='No';
 		}
 
 
 	}
-	
+	document.write (Object.keys(appData).keys);
 
 }
 chooseOptExpenses();
