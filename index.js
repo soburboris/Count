@@ -53,10 +53,10 @@ var appData = {
 
 
 	},
-	detectLevel: function() {
+	detectLevel: function () {
 		if (appData.moneyPerDay < 100) {
 			console.log('Минимальный уровень достатка!');
-	
+
 		} else if (appData.moneyPerDay > 100 && appData.moneyPerDay < 2000) {
 			console.log('Средний уровень достатка!');
 		} else if (appData.moneyPerDay > 100) {
@@ -66,17 +66,17 @@ var appData = {
 		}
 
 	},
-	checkSaving:function() {
+	checkSaving: function () {
 		if (appData.savings == true) {
 			let save = +prompt("Какова сумма накоплений?"),
 				percent = +prompt("Под какой процент?");
-	
+
 			appData.monthIncome = save / 100 / 12 * percent;
 			alert("Доход в месяц с депозита, составляет: " + appData.monthIncome);
 		}
 
 	},
-	chooseOptExpenses: function() {
+	chooseOptExpenses: function () {
 
 		for (var i = 1; i < 4; i++) {
 			let questsion = confirm("Статья необязательных расходов?");
@@ -85,10 +85,17 @@ var appData = {
 			} else {
 				appData.optionalExpenses[i] = 'No';
 			}
-	
-	
+
+
 		}
+	},
+	chooseIncome: function () {
+
+		let items = prompt('Что принесет дополгительный доход? Перечислите через запятую', '');
+		appData.Income= items.split(', ');
+		appData.Income.push(prompt('Может чтото еще?'));
+		appData.Income.sort();
+
 	}
 
 };
-
