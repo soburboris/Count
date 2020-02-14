@@ -89,13 +89,50 @@ var appData = {
 
 		}
 	},
+
+
 	chooseIncome: function () {
 
 		let items = prompt('Что принесет дополгительный доход? Перечислите через запятую', '');
-		appData.Income= items.split(', ');
-		appData.Income.push(prompt('Может чтото еще?'));
+
+
+
+
+		while ((typeof (items)) != 'string' || items == '' || items == null) {
+			alert('Вы ввели некорректные данные!');
+			items = prompt('Что принесет дополгительный доход? Перечислите через запятую', '');
+
+		}
+		appData.Income = items.split(', ');
+		appData.Income.push(prompt('Может что-то еще?'));
 		appData.Income.sort();
 
+		appData.Income.forEach(function (item, i, Income) {
+		
+			console.log(i + ': ' + item + " (Способы дополнительного заработка :" + Income + ")");
+			
+
+
+
+
+		});
+
+		for (let key in appData) {
+			console.log('Наша программа включает в себя данные: ' + appData[key]);
+			
+		}
+
+		document.write("Способы дополнительного заработка " + appData.Income);
+
+
+
+
+
+
+
+
 	}
+	
+
 
 };
