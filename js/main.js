@@ -10,10 +10,18 @@ let startBtn = document.getElementById('start'),
 
 
     exppensesItem = document.getElementsByClassName('expenses-item'),
+    div = document.getElementById('div'),
     expensesBtn = document.getElementsByTagName('button')[0],
-    optionalexpensesBtn = document.getElementsByTagName('button')[1],
-    countBtn = document.getElementsByTagName('button')[2],
-    optionalexpensesItem = document.querySelectorAll('.optionalexpenses-item'),
+    expensesBtn1 = document.getElementsByTagName('button')[1],
+    expensesBtn2 = document.getElementsByTagName('button')[2],
+
+    div2 = document.getElementById('div2'),
+    optionalexpensesBtn = document.getElementsByTagName('button')[3],
+    optionalexpensesBtn1 = document.getElementsByTagName('button')[4],
+    optionalexpensesBtn2 = document.getElementsByTagName('button')[5],
+
+    countBtn = document.getElementsByTagName('button')[6],
+    optionalexpensesItem = document.getElementsByClassName('optionalexpenses-item'),
     incomeItem = document.querySelector('.choose-income'),
     checkSavings = document.querySelector('#savings'),
     sumValue = document.querySelector('.choose-sum'),
@@ -42,9 +50,9 @@ var appData = {
 };
 
 
-countBtn.disabled = true;
-expensesBtn.disabled = true;
-optionalexpensesBtn.disabled = true;
+// countBtn.disabled = true;
+// expensesBtn.disabled = true;
+// optionalexpensesBtn.disabled = true;
 
 startBtn.addEventListener('click', function () {
     time = prompt('Введите дату в формате YYYY-MM-DD', '');
@@ -62,6 +70,54 @@ startBtn.addEventListener('click', function () {
     dayValue.value = new Date(Date.parse(time)).getDate();
 
     expensesBtn.disabled = false;
+
+
+});
+
+
+
+expensesBtn1.onclick = function () {
+    let input = document.createElement('input'),
+        input1 = document.createElement('input');
+
+    input.classList.add('expenses-item');
+    input.placeholder = 'Наименование';
+    input.style.marginRight = '4px';
+    input1.classList.add('expenses-item');
+    input1.placeholder = 'Цена';
+
+    div.appendChild(input);
+    div.appendChild(input1);
+
+
+};
+
+expensesBtn1.click(input);
+
+expensesBtn2.addEventListener('click', function () {
+
+    // var obj = document.querySelectorAll('.expenses-item');
+
+    // for (let i = 0 ; i < obj.length; i++) {
+
+
+    //     obj[i].sort();
+    //     obj[i++].remove();
+    //     obj[i--].remove();
+    //     break;
+
+
+    // }
+    let lastNode = div.lastChild;
+    lastNode.parentNode.removeChild(lastNode);
+
+    setTimeout(function log() {
+        var lastNode = div.lastChild;
+        lastNode.parentNode.removeChild(lastNode);
+        clearTimeout();
+
+
+    });
 
 
 });
@@ -100,19 +156,71 @@ expensesBtn.addEventListener('click', function () {
 
 });
 
+optionalexpensesBtn1.onclick = function () {
+    let input = document.createElement('input'),
+        input1 = document.createElement('input');
+
+    input.classList.add('optionalexpenses-item');
+    input.placeholder = 'Наименование';
+    input.style.marginRight = '4px';
+    input1.classList.add('optionalexpenses-item');
+    input1.placeholder = 'Цена';
+
+    div2.appendChild(input);
+    div2.appendChild(input1);
+
+
+};
+
+optionalexpensesBtn1.click(input);
+
+optionalexpensesBtn2.addEventListener('click', function () {
+
+    let lastNode = div2.lastChild;
+    lastNode.parentNode.removeChild(lastNode);
+
+    setTimeout(function log() {
+        var lastNode = div2.lastChild;
+        lastNode.parentNode.removeChild(lastNode);
+        clearTimeout();
+
+
+    });
+
+
+});
+
 
 optionalexpensesBtn.addEventListener('click', function () {
+   
+
     let sum = 0;
 
     for (var i = 0; i < optionalexpensesItem.length; i++) {
-        let questsion = optionalexpensesItem[i].value;
-        appData.optionalExpenses[i] = questsion;
-        sum += +(appData.optionalExpenses[i]);
+        var a = optionalexpensesItem[i].value,
+            b = optionalexpensesItem[++i].value;
 
+        if ((typeof (a)) === 'string' && (typeof (a)) != null && (typeof (b)) != null &&
+            a != '' && b != '' && a.length < 50) {
+
+            
+            appData.optionalExpenses[a] = b;
+            sum += +b;
+
+        } else {
+
+
+            alert('Вы ввели недопустимые значения! Повторите ввод.');
+
+            return false;
+
+        }
 
 
     }
     optionalexpensesValue.textContent = sum;
+    
+
 
 });
 
@@ -120,18 +228,18 @@ countBtn.addEventListener('click', function () {
 
     if (appData.budget != undefined || expensesValue.textContent != '') {
 
-        appData.moneyPerDay = ((appData.budget - parseInt(expensesValue.textContent)) / 30).toFixed();
+        appData.moneyPerDay = ((appData.budget - parseInt(expensesValue.textContent)-parseInt(optionalexpensesValue.textContent) ) / 30).toFixed();
         daybudgetValue.textContent = appData.moneyPerDay;
 
         optionalexpensesBtn.disabled = false;
 
-        if (appData.moneyPerDay < 100) {
+        if (appData.moneyPerDay < 500) {
             levelValue.textContent = 'Минимальный уровень достатка!';
 
-        } else if (appData.moneyPerDay > 100 && appData.moneyPerDay < 2000) {
+        } else if (appData.moneyPerDay > 500 && appData.moneyPerDay < 2000) {
 
             levelValue.textContent = 'Средний уровень достатка!';
-        } else if (appData.moneyPerDay > 100) {
+        } else if (appData.moneyPerDay > 2000) {
 
             levelValue.textContent = 'Высокий уровень достатка!';
         } else {
