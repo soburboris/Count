@@ -50,9 +50,10 @@ var appData = {
 };
 
 
-// countBtn.disabled = true;
-// expensesBtn.disabled = true;
-// optionalexpensesBtn.disabled = true;
+countBtn.disabled = true;
+expensesBtn.disabled = true;
+optionalexpensesBtn.disabled = true;
+incomeItem.disabled = true;
 
 startBtn.addEventListener('click', function () {
     time = prompt('Введите дату в формате YYYY-MM-DD', '');
@@ -74,54 +75,6 @@ startBtn.addEventListener('click', function () {
 
 });
 
-
-
-expensesBtn1.onclick = function () {
-    let input = document.createElement('input'),
-        input1 = document.createElement('input');
-
-    input.classList.add('expenses-item');
-    input.placeholder = 'Наименование';
-    input.style.marginRight = '4px';
-    input1.classList.add('expenses-item');
-    input1.placeholder = 'Цена';
-
-    div.appendChild(input);
-    div.appendChild(input1);
-
-
-};
-
-expensesBtn1.click(input);
-
-expensesBtn2.addEventListener('click', function () {
-
-    // var obj = document.querySelectorAll('.expenses-item');
-
-    // for (let i = 0 ; i < obj.length; i++) {
-
-
-    //     obj[i].sort();
-    //     obj[i++].remove();
-    //     obj[i--].remove();
-    //     break;
-
-
-    // }
-    let lastNode = div.lastChild;
-    lastNode.parentNode.removeChild(lastNode);
-
-    setTimeout(function log() {
-        var lastNode = div.lastChild;
-        lastNode.parentNode.removeChild(lastNode);
-        clearTimeout();
-
-
-    });
-
-
-});
-
 expensesBtn.addEventListener('click', function () {
     let sum = 0;
 
@@ -131,8 +84,6 @@ expensesBtn.addEventListener('click', function () {
 
         if ((typeof (a)) === 'string' && (typeof (a)) != null && (typeof (b)) != null &&
             a != '' && b != '' && a.length < 50) {
-
-            console.log('done');
             appData.expenses[a] = b;
             sum += +b;
 
@@ -148,51 +99,16 @@ expensesBtn.addEventListener('click', function () {
 
     }
     expensesValue.textContent = sum;
-    countBtn.disabled = false;
-
-
-
-
+    
+    optionalexpensesBtn.disabled = false;
+    
 
 });
 
-optionalexpensesBtn1.onclick = function () {
-    let input = document.createElement('input'),
-        input1 = document.createElement('input');
-
-    input.classList.add('optionalexpenses-item');
-    input.placeholder = 'Наименование';
-    input.style.marginRight = '4px';
-    input1.classList.add('optionalexpenses-item');
-    input1.placeholder = 'Цена';
-
-    div2.appendChild(input);
-    div2.appendChild(input1);
-
-
-};
-
-optionalexpensesBtn1.click(input);
-
-optionalexpensesBtn2.addEventListener('click', function () {
-
-    let lastNode = div2.lastChild;
-    lastNode.parentNode.removeChild(lastNode);
-
-    setTimeout(function log() {
-        var lastNode = div2.lastChild;
-        lastNode.parentNode.removeChild(lastNode);
-        clearTimeout();
-
-
-    });
-
-
-});
 
 
 optionalexpensesBtn.addEventListener('click', function () {
-   
+
 
     let sum = 0;
 
@@ -202,8 +118,6 @@ optionalexpensesBtn.addEventListener('click', function () {
 
         if ((typeof (a)) === 'string' && (typeof (a)) != null && (typeof (b)) != null &&
             a != '' && b != '' && a.length < 50) {
-
-            
             appData.optionalExpenses[a] = b;
             sum += +b;
 
@@ -216,19 +130,97 @@ optionalexpensesBtn.addEventListener('click', function () {
 
         }
 
-
     }
     optionalexpensesValue.textContent = sum;
-    
-
+    countBtn.disabled = false;
 
 });
 
-countBtn.addEventListener('click', function () {
+
+let btns = document.getElementsByTagName('button');
+
+function aa() {
+    let input = document.createElement('input'),
+        input1 = document.createElement('input');
+
+    input.classList.add('expenses-item');
+    input.placeholder = 'Наименование';
+    input.style.marginRight = '4px';
+    input1.classList.add('expenses-item');
+    input1.placeholder = 'Цена';
+
+    div.appendChild(input);
+    div.appendChild(input1);
+
+}
+
+function bb() {
+
+    let lastNode = div.lastChild;
+    lastNode.parentNode.removeChild(lastNode);
+
+    setTimeout(function log() {
+        var lastNode = div.lastChild;
+        lastNode.parentNode.removeChild(lastNode);
+        clearTimeout();
+    });
+
+}
+
+function cc() {
+    let input = document.createElement('input'),
+        input1 = document.createElement('input');
+
+    input.classList.add('optionalexpenses-item');
+    input.placeholder = 'Наименование';
+    input.style.marginRight = '4px';
+    input1.classList.add('optionalexpenses-item');
+    input1.placeholder = 'Цена';
+
+    div2.appendChild(input);
+    div2.appendChild(input1);
+}
+
+function dd() {
+
+    let lastNode = div2.lastChild;
+    lastNode.parentNode.removeChild(lastNode);
+
+    setTimeout(function log() {
+        var lastNode = div2.lastChild;
+        lastNode.parentNode.removeChild(lastNode);
+        clearTimeout();
+
+
+    });
+
+}
+
+
+document.body.addEventListener('click', function (event) {
+    if (event.target && event.target.classList.contains('aa')) {
+        aa();
+    } else if (event.target && event.target.classList.contains('bb')) {
+        bb();
+
+    } else if (event.target && event.target.classList.contains('cc')) {
+        cc();
+
+    } else if (event.target && event.target.classList.contains('dd')) {
+        dd();
+    }
+
+});
+
+aa();
+cc();
+
+countBtn.onclick = function () {
 
     if (appData.budget != undefined || expensesValue.textContent != '') {
 
-        appData.moneyPerDay = ((appData.budget - parseInt(expensesValue.textContent)-parseInt(optionalexpensesValue.textContent) ) / 30).toFixed();
+        appData.moneyPerDay = ((appData.budget - parseInt(expensesValue.textContent) -
+            parseInt(optionalexpensesValue.textContent)) / 30).toFixed();
         daybudgetValue.textContent = appData.moneyPerDay;
 
         optionalexpensesBtn.disabled = false;
@@ -247,118 +239,137 @@ countBtn.addEventListener('click', function () {
             levelValue.textContent = 'Ошибка!';
         }
 
-
-
     } else {
         levelValue.textContent = '';
         alert('Нажмите на кнопку, <Начать расчет>');
 
-
     }
+    incomeItem.disabled = false;
+    countBtn.disabled = true;
 
 
-});
+};
 
-incomeItem.addEventListener('input', function () {
+// incomeItem.addEventListener('input', function () {
 
-    let items = incomeItem.value;
+//     let items = incomeItem.value;
 
-    appData.income = items.split(/\+\s?/).map(function (items) {
-        return parseInt(items);
-    });
+//     appData.income = items.split(/\+\s?/).map(function (items) {
+//         return parseInt(items);
+//     });
 
-    var n = eval(appData.income.join('+'));
+//     var n = eval(appData.income.join('+'));
+//     incomeValue.textContent = n;
+//     daybudgetValue.textContent = +appData.moneyPerDay + n;
 
-    incomeValue.textContent = n;
-
-
-});
-
-checkSavings.addEventListener('click', function () {
-
-    if (appData.savings == true) {
-        appData.savings = false;
-    } else {
-        appData.savings = true;
-    }
-});
-
-sumValue.addEventListener('input', function () {
-    if (appData.savings == true) {
-        let sum = +sumValue.value,
-            percent = +percentValue.value;
-
-        appData.monthIncome = sum / 100 / 12 * percent;
-        appData.yearIncome = sum / 100 * percent;
-
-        monthsavingsValue.textContent = appData.monthIncome.toFixed(1);
-        yearsavingsValue.textContent = appData.yearIncome.toFixed(1);
-
-    }
-
-});
-
-percentValue.addEventListener('input', function () {
-    if (appData.savings == true) {
-
-        let sum = +sumValue.value,
-            percent = +percentValue.value;
-
-        appData.monthIncome = sum / 100 / 12 * percent;
-        appData.yearIncome = sum / 100 * percent;
-
-        monthsavingsValue.textContent = appData.monthIncome.toFixed(1);
-        yearsavingsValue.textContent = appData.yearIncome.toFixed(1);
-
-
-    }
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// input[2].addEventListener('click', {
-//     handleEvent(event) {
-//         event.target.placeholder = 'Нужный текст';
-
-
-//     }
 // });
 
+incomeItem.onkeypress = function (event) {
+        if (event.keyCode === 13) {
+            let items = incomeItem.value;
 
-// );
+            appData.income = items.split(/\+\s?/).map(function (items) {
+                return parseInt(items);
+            });
 
-// expensesItem1.forEach(function(item){
-// 	item.addEventListener('click', function(){
-// 		console.log('Произошло событие: ' + ' эта кнопка №'+item.textContent);
-//         console.log(item.style);
-//         item.placeholder = 'Нужный текст';
+            let n = eval(appData.income.join('+'));
+            console.log(n);
+            if (isNaN(n)) {
+                    alert('Ошибка!');
+                } 
+                else {
+                    incomeValue.textContent = n;
+                    budgetValue.textContent = +n + appData.budget ;
+                    daybudgetValue.textContent = parseInt(budgetValue.textContent/ 30);
+                }
+            }
+        }
+
+        checkSavings.addEventListener('click', function () {
+
+            if (appData.savings == true) {
+                appData.savings = false;
+            } else {
+                appData.savings = true;
+            }
+        });
+
+        sumValue.addEventListener('input', function () {
+            if (appData.savings == true) {
+                let sum = +sumValue.value,
+                    percent = +percentValue.value;
+
+                appData.monthIncome = sum / 100 / 12 * percent;
+                appData.yearIncome = sum / 100 * percent;
+
+                monthsavingsValue.textContent = appData.monthIncome.toFixed(1);
+                yearsavingsValue.textContent = appData.yearIncome.toFixed(1);
+
+            }
+
+        });
+
+        percentValue.addEventListener('input', function () {
+            if (appData.savings == true) {
+
+                let sum = +sumValue.value,
+                    percent = +percentValue.value;
+
+                appData.monthIncome = sum / 100 / 12 * percent;
+                appData.yearIncome = sum / 100 * percent;
+
+                monthsavingsValue.textContent = appData.monthIncome.toFixed(1);
+                yearsavingsValue.textContent = appData.yearIncome.toFixed(1);
 
 
-// 	});
-// });
+            }
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // input[2].addEventListener('click', {
+        //     handleEvent(event) {
+        //         event.target.placeholder = 'Нужный текст';
+
+
+        //     }
+        // });
+
+
+        // );
+
+        // expensesItem1.forEach(function(item){
+        // 	item.addEventListener('click', function(){
+        // 		console.log('Произошло событие: ' + ' эта кнопка №'+item.textContent);
+        //         console.log(item.style);
+        //         item.placeholder = 'Нужный текст';
+
+
+        // 	});
+        // });
