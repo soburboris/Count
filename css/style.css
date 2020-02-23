@@ -217,7 +217,7 @@ a:active {
     width: 450px;
     min-height: 400px;
     margin: 0 auto;
-    margin-top: 42px;
+    margin-top: -7px;
     padding: 25px;
     background-color: #fff;
     box-shadow: 0 1.5px 20px 0 rgba(1, 0, 42, .1);

@@ -12,13 +12,13 @@ let startBtn = document.getElementById('start'),
     exppensesItem = document.getElementsByClassName('expenses-item'),
     div = document.getElementById('div'),
     expensesBtn = document.getElementsByTagName('button')[0],
-    expensesBtn1 = document.getElementsByTagName('button')[1],
-    expensesBtn2 = document.getElementsByTagName('button')[2],
+    // expensesBtn1 = document.getElementsByTagName('button'),
+    // expensesBtn2 = document.getElementsByTagName('button'),
 
     div2 = document.getElementById('div2'),
     optionalexpensesBtn = document.getElementsByTagName('button')[3],
-    optionalexpensesBtn1 = document.getElementsByTagName('button')[4],
-    optionalexpensesBtn2 = document.getElementsByTagName('button')[5],
+    // optionalexpensesBtn1 = document.getElementsByTagName('button'),
+    // optionalexpensesBtn2 = document.getElementsByTagName('button'),
 
     countBtn = document.getElementsByTagName('button')[6],
     optionalexpensesItem = document.getElementsByClassName('optionalexpenses-item'),
@@ -137,7 +137,7 @@ optionalexpensesBtn.addEventListener('click', function () {
 });
 
 
-let btns = document.getElementsByTagName('button');
+
 
 function aa() {
     let input = document.createElement('input'),
@@ -227,15 +227,11 @@ countBtn.onclick = function () {
 
         if (appData.moneyPerDay < 500) {
             levelValue.textContent = 'Минимальный уровень достатка!';
-
         } else if (appData.moneyPerDay > 500 && appData.moneyPerDay < 2000) {
-
             levelValue.textContent = 'Средний уровень достатка!';
         } else if (appData.moneyPerDay > 2000) {
-
             levelValue.textContent = 'Высокий уровень достатка!';
         } else {
-
             levelValue.textContent = 'Ошибка!';
         }
 
