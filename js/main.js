@@ -49,8 +49,22 @@ var appData = {
 
 };
 
+function budget() {
+    budgetValue.textContent = appData.budget - parseInt(expensesValue.textContent) -
+        parseInt(optionalexpensesValue.textContent) + parseInt(incomeValue.textContent);
+    daybudgetValue.textContent = parseInt(budgetValue.textContent / 30);
+    if (daybudgetValue.textContent < 500) {
+        levelValue.textContent = 'Минимальный уровень достатка!';
+    } else if (daybudgetValue.textContent > 500 && daybudgetValue.textContent < 2000) {
+        levelValue.textContent = 'Средний уровень достатка!';
+    } else if (daybudgetValue.textContent > 2000) {
+        levelValue.textContent = 'Высокий уровень достатка!';
+    }
 
-countBtn.disabled = true;
+
+}
+
+// countBtn.disabled = true;
 expensesBtn.disabled = true;
 optionalexpensesBtn.disabled = true;
 incomeItem.disabled = true;
@@ -99,9 +113,14 @@ expensesBtn.addEventListener('click', function () {
 
     }
     expensesValue.textContent = sum;
-    
+    expensesBtn.disabled = false;
     optionalexpensesBtn.disabled = false;
-    
+    incomeItem.disabled = false;
+
+    budget();
+
+
+
 
 });
 
@@ -132,7 +151,10 @@ optionalexpensesBtn.addEventListener('click', function () {
 
     }
     optionalexpensesValue.textContent = sum;
-    countBtn.disabled = false;
+
+    budget();
+
+
 
 });
 
@@ -215,36 +237,39 @@ document.body.addEventListener('click', function (event) {
 aa();
 cc();
 
-countBtn.onclick = function () {
+// countBtn.onclick = function () {
 
-    if (appData.budget != undefined || expensesValue.textContent != '') {
+//     if (appData.budget != undefined || expensesValue.textContent != '') {
 
-        appData.moneyPerDay = ((appData.budget - parseInt(expensesValue.textContent) -
-            parseInt(optionalexpensesValue.textContent)) / 30).toFixed();
-        daybudgetValue.textContent = appData.moneyPerDay;
-
-        optionalexpensesBtn.disabled = false;
-
-        if (appData.moneyPerDay < 500) {
-            levelValue.textContent = 'Минимальный уровень достатка!';
-        } else if (appData.moneyPerDay > 500 && appData.moneyPerDay < 2000) {
-            levelValue.textContent = 'Средний уровень достатка!';
-        } else if (appData.moneyPerDay > 2000) {
-            levelValue.textContent = 'Высокий уровень достатка!';
-        } else {
-            levelValue.textContent = 'Ошибка!';
-        }
-
-    } else {
-        levelValue.textContent = '';
-        alert('Нажмите на кнопку, <Начать расчет>');
-
-    }
-    incomeItem.disabled = false;
-    countBtn.disabled = true;
+//         appData.moneyPerDay = ((appData.budget - parseInt(expensesValue.textContent) -
+//             parseInt(optionalexpensesValue.textContent) + parseInt(incomeValue.textContent)) / 30).toFixed();
+//         daybudgetValue.textContent = appData.moneyPerDay;
 
 
-};
+
+
+//         optionalexpensesBtn.disabled = false;
+
+//         if (appData.moneyPerDay < 500) {
+//             levelValue.textContent = 'Минимальный уровень достатка!';
+//         } else if (appData.moneyPerDay > 500 && appData.moneyPerDay < 2000) {
+//             levelValue.textContent = 'Средний уровень достатка!';
+//         } else if (appData.moneyPerDay > 2000) {
+//             levelValue.textContent = 'Высокий уровень достатка!';
+//         } else {
+//             levelValue.textContent = 'Ошибка!';
+//         }
+
+//     } else {
+//         levelValue.textContent = '';
+//         alert('Нажмите на кнопку, <Начать расчет>');
+
+//     }
+
+
+
+
+// };
 
 // incomeItem.addEventListener('input', function () {
 
@@ -261,70 +286,65 @@ countBtn.onclick = function () {
 // });
 
 incomeItem.onkeypress = function (event) {
-        if (event.keyCode === 13) {
-            let items = incomeItem.value;
+    if (event.keyCode === 13) {
+        let items = incomeItem.value;
 
-            appData.income = items.split(/\+\s?/).map(function (items) {
-                return parseInt(items);
-            });
+        appData.income = items.split(/\+\s?/).map(function (items) {
+            return parseInt(items);
+        });
 
-            let n = eval(appData.income.join('+'));
-            console.log(n);
-            if (isNaN(n)) {
-                    alert('Ошибка!');
-                } 
-                else {
-                    incomeValue.textContent = n;
-                    budgetValue.textContent = +n + appData.budget ;
-                    daybudgetValue.textContent = parseInt(budgetValue.textContent/ 30);
-                }
-            }
+        let n = eval(appData.income.join('+'));
+        console.log(n);
+        if (isNaN(n)) {
+            alert('Ошибка!');
+        } else {
+            incomeValue.textContent = n;
+
+            budget();
         }
+    }
+}
 
-        checkSavings.addEventListener('click', function () {
+checkSavings.addEventListener('click', function () {
 
-            if (appData.savings == true) {
-                appData.savings = false;
-            } else {
-                appData.savings = true;
-            }
-        });
+    if (appData.savings == true) {
+        appData.savings = false;
+    } else {
+        appData.savings = true;
+    }
+});
 
-        sumValue.addEventListener('input', function () {
-            if (appData.savings == true) {
-                let sum = +sumValue.value,
-                    percent = +percentValue.value;
+sumValue.addEventListener('input', function () {
+    if (appData.savings == true) {
+        let sum = +sumValue.value,
+            percent = +percentValue.value;
 
-                appData.monthIncome = sum / 100 / 12 * percent;
-                appData.yearIncome = sum / 100 * percent;
+        appData.monthIncome = sum / 100 / 12 * percent;
+        appData.yearIncome = sum / 100 * percent;
 
-                monthsavingsValue.textContent = appData.monthIncome.toFixed(1);
-                yearsavingsValue.textContent = appData.yearIncome.toFixed(1);
+        monthsavingsValue.textContent = appData.monthIncome.toFixed(1);
+        yearsavingsValue.textContent = appData.yearIncome.toFixed(1);
 
-            }
+    }
 
-        });
+});
 
-        percentValue.addEventListener('input', function () {
-            if (appData.savings == true) {
+percentValue.addEventListener('input', function () {
+    if (appData.savings == true) {
 
-                let sum = +sumValue.value,
-                    percent = +percentValue.value;
+        let sum = +sumValue.value,
+            percent = +percentValue.value;
 
-                appData.monthIncome = sum / 100 / 12 * percent;
-                appData.yearIncome = sum / 100 * percent;
+        appData.monthIncome = sum / 100 / 12 * percent;
+        appData.yearIncome = sum / 100 * percent;
 
-                monthsavingsValue.textContent = appData.monthIncome.toFixed(1);
-                yearsavingsValue.textContent = appData.yearIncome.toFixed(1);
-
-
-            }
-
-        });
+        monthsavingsValue.textContent = appData.monthIncome.toFixed(1);
+        yearsavingsValue.textContent = appData.yearIncome.toFixed(1);
 
 
+    }
 
-
+});
 
 
 
@@ -349,23 +369,27 @@ incomeItem.onkeypress = function (event) {
 
 
 
-        // input[2].addEventListener('click', {
-        //     handleEvent(event) {
-        //         event.target.placeholder = 'Нужный текст';
 
 
-        //     }
-        // });
 
 
-        // );
-
-        // expensesItem1.forEach(function(item){
-        // 	item.addEventListener('click', function(){
-        // 		console.log('Произошло событие: ' + ' эта кнопка №'+item.textContent);
-        //         console.log(item.style);
-        //         item.placeholder = 'Нужный текст';
+// input[2].addEventListener('click', {
+//     handleEvent(event) {
+//         event.target.placeholder = 'Нужный текст';
 
 
-        // 	});
-        // });
+//     }
+// });
+
+
+// );
+
+// expensesItem1.forEach(function(item){
+// 	item.addEventListener('click', function(){
+// 		console.log('Произошло событие: ' + ' эта кнопка №'+item.textContent);
+//         console.log(item.style);
+//         item.placeholder = 'Нужный текст';
+
+
+// 	});
+// });

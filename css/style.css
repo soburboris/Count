@@ -291,7 +291,8 @@ a:active {
     color: #a7a7a7;
     width: 96px;
     height: 37px;
-    margin-left: 25px
+    margin-left: 25px;
+    text-align: center;
 }
 
 .time-data .year input:last-child{
